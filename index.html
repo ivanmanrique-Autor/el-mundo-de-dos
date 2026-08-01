@@ -6,227 +6,95 @@
   <meta name="description" content="El mundo de dos, la nueva novela de Iván Manrique.">
   <meta name="theme-color" content="#f3eadc">
   <title>El mundo de dos — Iván Manrique</title>
-
   <style>
-    :root{
-      --fondo:#f3eadc;
-      --texto:#202327;
-      --suave:#736d65;
-      --dorado:#c58c20;
-      --linea:rgba(32,35,39,.16);
-    }
-
+    :root{--fondo:#f3eadc;--texto:#202327;--suave:#746e66;--dorado:#c58c20;--dorado-oscuro:#a87312}
     *{box-sizing:border-box}
-
     html{scroll-behavior:smooth}
-
     body{
-      margin:0;
-      min-height:100svh;
-      background:
-        radial-gradient(circle at 78% 15%, rgba(255,255,255,.75), transparent 28rem),
-        linear-gradient(180deg,#f7efe3 0%,var(--fondo) 100%);
-      color:var(--texto);
-      font-family:Georgia,"Times New Roman",serif;
-      overflow-x:hidden;
+      margin:0;min-height:100svh;
+      background:radial-gradient(circle at 78% 15%,rgba(255,255,255,.78),transparent 28rem),
+                 linear-gradient(180deg,#f8f0e4 0%,var(--fondo) 100%);
+      color:var(--texto);font-family:Georgia,"Times New Roman",serif;overflow-x:hidden
     }
-
     .pagina{
-      min-height:100svh;
-      display:grid;
+      min-height:100svh;display:grid;
       grid-template-columns:minmax(270px,440px) minmax(320px,610px);
-      justify-content:center;
-      align-items:center;
+      grid-template-areas:"portada contenido";
+      justify-content:center;align-items:center;
       gap:clamp(2.4rem,7vw,8rem);
-      padding:clamp(1.4rem,5vw,4.5rem);
-      position:relative;
+      padding:clamp(1.4rem,5vw,4.5rem);position:relative
     }
-
-    .portada-contenedor{
-      display:flex;
-      justify-content:center;
-      animation:aparecer .9s ease-out both;
-    }
-
+    .portada-contenedor{grid-area:portada;display:flex;justify-content:center;animation:aparecer .9s ease-out both}
     .portada{
-      width:min(100%,410px);
-      height:auto;
-      display:block;
-      box-shadow:
-        0 35px 85px rgba(64,48,25,.18),
-        0 3px 10px rgba(64,48,25,.12);
-      transform:rotate(-.35deg);
+      width:min(100%,410px);height:auto;display:block;
+      box-shadow:0 35px 85px rgba(64,48,25,.18),0 3px 10px rgba(64,48,25,.12);
+      transform:rotate(-.35deg)
     }
-
-    .contenido{
-      max-width:620px;
-      animation:subir 1s .12s ease-out both;
-    }
-
+    .contenido{grid-area:contenido;max-width:620px;animation:subir 1s .12s ease-out both}
     .ceja{
-      margin:0 0 1.4rem;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:.72rem;
-      letter-spacing:.24em;
-      text-transform:uppercase;
-      color:var(--dorado);
-      font-weight:700;
+      margin:0 0 1.35rem;font-family:Arial,Helvetica,sans-serif;font-size:.72rem;
+      letter-spacing:.24em;text-transform:uppercase;color:var(--dorado);font-weight:700
     }
-
     h1{
-      margin:0;
-      font-weight:400;
-      font-size:clamp(2.7rem,6vw,5.9rem);
-      line-height:.99;
-      letter-spacing:-.045em;
-      text-wrap:balance;
+      margin:0;font-weight:400;font-size:clamp(2.7rem,6vw,5.9rem);
+      line-height:.99;letter-spacing:-.045em;text-wrap:balance
     }
-
-    h1 em{
-      color:var(--dorado);
-      font-style:normal;
-    }
-
-    .separador{
-      width:78px;
-      height:1px;
-      background:var(--dorado);
-      margin:2rem 0 1.7rem;
-    }
-
-    .texto{
-      margin:0;
-      max-width:31rem;
-      color:var(--suave);
-      font-size:clamp(1rem,1.7vw,1.18rem);
-      line-height:1.65;
-    }
-
+    h1 em{color:var(--dorado);font-style:normal}
+    .separador{width:78px;height:1px;background:var(--dorado);margin:2rem 0 1.55rem}
     .boton{
-      margin-top:2.1rem;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:58px;
-      padding:1rem 1.45rem;
-      border:1px solid var(--texto);
-      color:var(--texto);
-      text-decoration:none;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:.78rem;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      background:rgba(255,255,255,.16);
-      cursor:not-allowed;
-      opacity:.58;
-      user-select:none;
+      display:inline-flex;align-items:center;justify-content:center;min-height:58px;
+      padding:1rem 1.55rem;border:1px solid var(--dorado-oscuro);color:#fffaf2;
+      font-family:Arial,Helvetica,sans-serif;font-size:.78rem;font-weight:700;
+      letter-spacing:.11em;text-transform:uppercase;
+      background:linear-gradient(180deg,#cc9528 0%,#b87d12 100%);
+      box-shadow:0 12px 28px rgba(174,116,13,.18);cursor:not-allowed;user-select:none
     }
-
-    .nota{
-      margin:.9rem 0 0;
-      color:var(--suave);
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:.82rem;
-      line-height:1.45;
-    }
-
+    .nota{margin:.78rem 0 0;color:var(--suave);font-family:Arial,Helvetica,sans-serif;font-size:.82rem;line-height:1.45}
+    .texto{margin:1.45rem 0 0;max-width:31rem;color:var(--suave);font-size:clamp(1rem,1.7vw,1.18rem);line-height:1.65}
     .firma{
-      position:absolute;
-      right:clamp(1.2rem,3vw,2.2rem);
-      bottom:1.2rem;
-      color:rgba(32,35,39,.48);
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:.75rem;
-      letter-spacing:.04em;
+      position:absolute;right:clamp(1.2rem,3vw,2.2rem);bottom:1.2rem;
+      color:rgba(32,35,39,.48);font-family:Arial,Helvetica,sans-serif;font-size:.75rem;letter-spacing:.04em
     }
-
-    @keyframes aparecer{
-      from{opacity:0;transform:translateY(14px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    @keyframes subir{
-      from{opacity:0;transform:translateY(18px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
+    @keyframes aparecer{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes subir{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     @media (max-width:800px){
       .pagina{
-        grid-template-columns:1fr;
-        gap:2.5rem;
-        padding:1.2rem 1.15rem 4rem;
+        min-height:auto;grid-template-columns:1fr;
+        grid-template-areas:"contenido" "portada";
+        gap:2rem;padding:max(1rem,env(safe-area-inset-top)) 1.15rem 3.5rem
       }
-
-      .portada{
-        width:min(84vw,360px);
-      }
-
-      .contenido{
-        text-align:center;
-        margin:0 auto;
-      }
-
-      .ceja{margin-bottom:1.1rem}
-
-      h1{
-        font-size:clamp(2.55rem,11vw,4rem);
-      }
-
-      .separador{
-        margin:1.7rem auto 1.45rem;
-      }
-
-      .texto{
-        margin:0 auto;
-      }
-
-      .boton{
-        width:min(100%,340px);
-      }
-
-      .firma{
-        position:static;
-        text-align:center;
-        padding:0 0 1rem;
-      }
+      .contenido{text-align:center;margin:0 auto;padding-top:.3rem}
+      .ceja{margin-bottom:.8rem;font-size:.65rem}
+      h1{font-size:clamp(2.35rem,10.5vw,3.6rem);line-height:1.01}
+      .separador{margin:1.25rem auto 1.15rem}
+      .boton{width:min(100%,350px);min-height:54px;padding:.9rem 1rem;font-size:.71rem}
+      .nota{margin-top:.65rem}
+      .texto{margin:1rem auto 0;font-size:.98rem;line-height:1.55}
+      .portada{width:min(72vw,295px)}
+      .firma{position:static;text-align:center;padding:0 0 1rem}
     }
-
-    @media (prefers-reduced-motion:reduce){
-      *{animation:none!important;scroll-behavior:auto!important}
+    @media (max-height:720px) and (max-width:800px){
+      h1{font-size:clamp(2.1rem,9.5vw,3rem)}
+      .texto{display:none}
+      .portada{width:min(58vw,235px)}
+      .pagina{gap:1.3rem}
     }
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
-
 <body>
   <main class="pagina">
     <div class="portada-contenedor">
-      <img
-        class="portada"
-        src="portada.jpg"
-        alt="Portada de El mundo de dos, de Iván Manrique">
+      <img class="portada" src="portada.jpg" alt="Portada de El mundo de dos, de Iván Manrique">
     </div>
-
     <section class="contenido">
       <p class="ceja">Una novela de Iván Manrique</p>
-
-      <h1>
-        Las personas no empiezan donde <em>las conocemos.</em>
-      </h1>
-
+      <h1>Las personas no empiezan donde <em>las conocemos.</em></h1>
       <div class="separador" aria-hidden="true"></div>
-
-      <p class="texto">
-        Muy pronto podrás descubrir el comienzo de <em>El mundo de dos</em>.
-      </p>
-
-      <span class="boton" aria-disabled="true">
-        Descargar gratis el primer capítulo
-      </span>
-
+      <span class="boton" aria-disabled="true">Descargar gratis el primer capítulo</span>
       <p class="nota">Próximamente</p>
+      <p class="texto">Muy pronto podrás descubrir el comienzo de <em>El mundo de dos</em>.</p>
     </section>
-
     <div class="firma">© Iván Manrique</div>
   </main>
 </body>
