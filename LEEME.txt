@@ -1,0 +1,15 @@
+EL MUNDO DE DOS — WEB V2
+
+Archivos:
+- index.html
+- portada.jpg
+
+Para publicarla:
+1. Sube ambos archivos al repositorio de GitHub.
+2. Conecta el repositorio con Vercel o Netlify.
+3. La página quedará publicada automáticamente.
+
+Cuando llegue el primer capítulo:
+- Añade el PDF con el nombre: primer-capitulo.pdf
+- Cambia el botón provisional por:
+  <a class="boton" href="primer-capitulo.pdf" download>Descargar gratis el primer capítulo</a>
