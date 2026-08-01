@@ -1,0 +1,28 @@
+EL MUNDO DE DOS — V4 CON ANALÍTICA
+
+SUBIR A GITHUB
+Sustituye:
+- index.html
+- portada.jpg
+
+ACTIVAR VISITAS EN VERCEL
+1. Abre el proyecto en Vercel.
+2. Entra en Analytics.
+3. Pulsa Enable.
+4. Espera al siguiente despliegue automático.
+
+ENLACES PARA CADA CANAL
+Correo:
+https://TU-DIRECCION.vercel.app/?utm_source=correo&utm_medium=email&utm_campaign=primer_capitulo
+
+Instagram:
+https://TU-DIRECCION.vercel.app/?utm_source=instagram&utm_medium=social&utm_campaign=primer_capitulo
+
+TikTok:
+https://TU-DIRECCION.vercel.app/?utm_source=tiktok&utm_medium=social&utm_campaign=primer_capitulo
+
+WhatsApp:
+https://TU-DIRECCION.vercel.app/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=primer_capitulo
+
+La web guarda el origen de la primera visita durante 90 días.
+Cuando añadamos el PDF, conectaremos el botón a un contador de descargas.

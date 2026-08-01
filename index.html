@@ -6,6 +6,15 @@
   <meta name="description" content="El mundo de dos, la nueva novela de Iván Manrique.">
   <meta name="theme-color" content="#f3eadc">
   <title>El mundo de dos — Iván Manrique</title>
+
+  <!-- Vercel Web Analytics: empezará a registrar cuando actives Analytics en Vercel -->
+  <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
     :root{--fondo:#f3eadc;--texto:#202327;--suave:#746e66;--dorado:#c58c20;--dorado-oscuro:#a87312}
     *{box-sizing:border-box}
@@ -47,14 +56,23 @@
       font-family:Arial,Helvetica,sans-serif;font-size:.78rem;font-weight:700;
       letter-spacing:.11em;text-transform:uppercase;
       background:linear-gradient(180deg,#cc9528 0%,#b87d12 100%);
-      box-shadow:0 12px 28px rgba(174,116,13,.18);cursor:not-allowed;user-select:none
+      box-shadow:0 12px 28px rgba(174,116,13,.18);cursor:pointer;user-select:none
     }
+    .boton:active{transform:translateY(1px)}
     .nota{margin:.78rem 0 0;color:var(--suave);font-family:Arial,Helvetica,sans-serif;font-size:.82rem;line-height:1.45}
     .texto{margin:1.45rem 0 0;max-width:31rem;color:var(--suave);font-size:clamp(1rem,1.7vw,1.18rem);line-height:1.65}
     .firma{
       position:absolute;right:clamp(1.2rem,3vw,2.2rem);bottom:1.2rem;
       color:rgba(32,35,39,.48);font-family:Arial,Helvetica,sans-serif;font-size:.75rem;letter-spacing:.04em
     }
+    .aviso{
+      position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,20px);
+      width:min(calc(100% - 2rem),420px);padding:.95rem 1rem;border-radius:4px;
+      background:#25282b;color:#fff;text-align:center;
+      font:600 .88rem/1.4 Arial,Helvetica,sans-serif;
+      opacity:0;pointer-events:none;transition:.25s ease;z-index:10
+    }
+    .aviso.visible{opacity:1;transform:translate(-50%,0)}
     @keyframes aparecer{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
     @keyframes subir{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     @media (max-width:800px){
@@ -82,20 +100,72 @@
     @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
+
 <body>
   <main class="pagina">
     <div class="portada-contenedor">
       <img class="portada" src="portada.jpg" alt="Portada de El mundo de dos, de Iván Manrique">
     </div>
+
     <section class="contenido">
       <p class="ceja">Una novela de Iván Manrique</p>
       <h1>Las personas no empiezan donde <em>las conocemos.</em></h1>
       <div class="separador" aria-hidden="true"></div>
-      <span class="boton" aria-disabled="true">Descargar gratis el primer capítulo</span>
+
+      <button id="descarga" class="boton" type="button">
+        Descargar gratis el primer capítulo
+      </button>
+
       <p class="nota">Próximamente</p>
       <p class="texto">Muy pronto podrás descubrir el comienzo de <em>El mundo de dos</em>.</p>
     </section>
+
     <div class="firma">© Iván Manrique</div>
   </main>
+
+  <div id="aviso" class="aviso" role="status" aria-live="polite">
+    El primer capítulo estará disponible próximamente.
+  </div>
+
+  <script>
+    // Guarda el origen de la primera visita durante 90 días.
+    // Cuando añadamos el PDF, este dato permitirá atribuir la descarga
+    // a correo, Instagram, TikTok, etc.
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const source = params.get("utm_source") || params.get("origen");
+      const campaign = params.get("utm_campaign");
+      const medium = params.get("utm_medium");
+
+      if (source) {
+        const attribution = {
+          source,
+          campaign: campaign || "",
+          medium: medium || "",
+          firstVisit: new Date().toISOString()
+        };
+        localStorage.setItem("emdd_attribution", JSON.stringify(attribution));
+        localStorage.setItem("emdd_attribution_expiry",
+          String(Date.now() + 90 * 24 * 60 * 60 * 1000));
+      }
+
+      const expiry = Number(localStorage.getItem("emdd_attribution_expiry") || 0);
+      if (expiry && Date.now() > expiry) {
+        localStorage.removeItem("emdd_attribution");
+        localStorage.removeItem("emdd_attribution_expiry");
+      }
+    })();
+
+    // Botón provisional. Al tener el PDF lo convertiremos en descarga medible.
+    const boton = document.getElementById("descarga");
+    const aviso = document.getElementById("aviso");
+    let temporizador;
+
+    boton.addEventListener("click", function () {
+      aviso.classList.add("visible");
+      clearTimeout(temporizador);
+      temporizador = setTimeout(() => aviso.classList.remove("visible"), 2600);
+    });
+  </script>
 </body>
 </html>
