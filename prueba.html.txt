@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba avisos</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 14px 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #mensaje {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Prueba de avisos</h2>
+
+  <p>Introduce un email de prueba:</p>
+
+  <form id="formulario">
+
+    <input
+      id="email"
+      type="email"
+      placeholder="email@ejemplo.com"
+      required
+    >
+
+    <button type="submit">
+      Enviar prueba
+    </button>
+
+  </form>
+
+  <p id="mensaje"></p>
+
+
+  <script>
+
+    const URL_AVISOS =
+      "https://script.google.com/macros/s/AKfycbyS_yTZ0GYS9Y7tDBee3A9vb4jsK0fWgj9q4ockol2OdziBCYP_cyuOTQib0KzMTEB3jA/exec";
+
+
+    document
+      .getElementById("formulario")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const mensaje =
+          document.getElementById("mensaje");
+
+
+        if (!email) {
+          mensaje.textContent = "Introduce un email.";
+          return;
+        }
+
+
+        mensaje.textContent = "Guardando...";
+
+
+        try {
+
+          await fetch(URL_AVISOS, {
+
+            method: "POST",
+
+            mode: "no-cors",
+
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8"
+            },
+
+            body: JSON.stringify({
+              email: email,
+              origen: "prueba_web",
+              medio: "prueba",
+              campana: "prueba_vercel"
+            })
+
+          });
+
+
+          /*
+          Con no-cors el navegador no puede leer la respuesta
+          de Google Apps Script.
+
+          Por eso confirmaremos el resultado mirando la hoja.
+          */
+
+          mensaje.textContent =
+            "Petición enviada. Comprueba la hoja de Google.";
+
+        }
+
+        catch (error) {
+
+          mensaje.textContent =
+            "No se ha podido enviar la petición.";
+
+        }
+
+      });
+
+  </script>
+
+</body>
+
+</html>
