@@ -2,28 +2,42 @@
 <html lang="es">
 
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="El mundo de dos, la nueva novela de Iván Manrique.">
-  <meta name="theme-color" content="#f3eadc">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="El mundo de dos, la nueva novela de Iván Manrique."
+  >
+
+  <meta
+    name="theme-color"
+    content="#f3eadc"
+  >
 
   <title>El mundo de dos — Iván Manrique</title>
 
 
   <!-- ============================================================
        ============================================================
-       
+
        CONFIGURACIÓN DE LA WEB
-       
+
        PARA CAMBIAR TEXTOS, PORTADA, EPUB O FECHA,
        TOCA SOLO ESTA ZONA.
-       
+
        ============================================================
        ============================================================ -->
 
   <script>
 
     const CONFIG = {
+
 
       /* ----------------------------------------------------------
          ARCHIVOS
@@ -41,16 +55,16 @@
 
       /* ----------------------------------------------------------
          FECHA DE LANZAMIENTO
-         
+
          Formato:
          AAAA-MM-DDTHH:MM:SS+01:00
-         
-         Ejemplo:
+
+         Ejemplo actual:
          1 marzo 2027 a las 00:00
          ---------------------------------------------------------- */
 
       fechaLanzamiento:
-        "2027-01-01T00:00:00+01:00",
+        "2027-03-01T00:00:00+01:00",
 
 
       /* ----------------------------------------------------------
@@ -128,8 +142,9 @@
 
 
       /* ----------------------------------------------------------
-         GOOGLE SHEETS
-         No hace falta tocar esto normalmente.
+         GOOGLE SHEETS / APPS SCRIPT
+
+         Normalmente NO tendrás que tocar esto.
          ---------------------------------------------------------- */
 
       urlAvisos:
@@ -1307,7 +1322,7 @@
 
 
     /* ============================================================
-       APLICAMOS LOS TEXTOS Y ARCHIVOS DE CONFIG
+       APLICAR CONFIGURACIÓN
        ============================================================ */
 
 
@@ -1391,7 +1406,7 @@
 
 
     /* ============================================================
-       CONFIGURACIÓN DE LA DESCARGA
+       DESCARGA
        ============================================================ */
 
 
@@ -1424,7 +1439,7 @@
 
 
     /* ============================================================
-       ATRIBUCIÓN DE LA VISITA
+       ATRIBUCIÓN
        ============================================================ */
 
 
@@ -1456,7 +1471,8 @@
 
         const attribution = {
 
-          source:source,
+          source:
+            source,
 
           campaign:
             campaign || "",
@@ -1521,7 +1537,7 @@
 
 
     /* ============================================================
-       OBTENER ATRIBUCIÓN
+       OBTENER PROCEDENCIA
        ============================================================ */
 
 
@@ -1576,15 +1592,101 @@
 
       return {
 
-        source:source,
+        source:
+          source,
 
-        medium:medium,
+        medium:
+          medium,
 
-        campaign:campaign
+        campaign:
+          campaign
 
       };
 
     }
+
+
+
+    /* ============================================================
+       ENVIAR ESTADÍSTICA A GOOGLE SHEETS
+       ============================================================ */
+
+
+    function registrarEstadistica(evento) {
+
+
+      const atribucion =
+        obtenerAtribucion();
+
+
+      /*
+         No esperamos respuesta.
+
+         Es una estadística y no queremos que
+         ralentice ni bloquee la navegación.
+      */
+
+
+      fetch(
+        CONFIG.urlAvisos,
+        {
+
+          method:
+            "POST",
+
+          mode:
+            "no-cors",
+
+          headers:{
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              tipo:
+                "estadistica",
+
+              evento:
+                evento,
+
+              origen:
+                atribucion.source,
+
+              medio:
+                atribucion.medium,
+
+              campana:
+                atribucion.campaign
+
+            })
+
+        }
+      )
+      .catch(function () {
+
+        /*
+           Si falla una estadística,
+           no molestamos al visitante.
+        */
+
+      });
+
+    }
+
+
+
+    /* ============================================================
+       REGISTRAR VISITA
+       ============================================================ */
+
+
+    registrarEstadistica(
+      "visita"
+    );
 
 
 
@@ -1622,7 +1724,9 @@
 
 
 
-      if (diferencia <= 0) {
+      if (
+        diferencia <= 0
+      ) {
 
 
         prelanzamiento
@@ -1635,7 +1739,9 @@
           .remove("oculto");
 
 
-        if (contadorIntervalo) {
+        if (
+          contadorIntervalo
+        ) {
 
           clearInterval(
             contadorIntervalo
@@ -1653,7 +1759,12 @@
       const dias =
         Math.floor(
           diferencia /
-          (1000 * 60 * 60 * 24)
+          (
+            1000 *
+            60 *
+            60 *
+            24
+          )
         );
 
 
@@ -1661,7 +1772,11 @@
         Math.floor(
           (
             diferencia /
-            (1000 * 60 * 60)
+            (
+              1000 *
+              60 *
+              60
+            )
           ) % 24
         );
 
@@ -1670,7 +1785,10 @@
         Math.floor(
           (
             diferencia /
-            (1000 * 60)
+            (
+              1000 *
+              60
+            )
           ) % 60
         );
 
@@ -1678,38 +1796,59 @@
       const segundos =
         Math.floor(
           (
-            diferencia / 1000
+            diferencia /
+            1000
           ) % 60
         );
 
 
 
       document
-        .getElementById("dias")
+        .getElementById(
+          "dias"
+        )
         .textContent =
         String(dias)
-          .padStart(2,"0");
+          .padStart(
+            2,
+            "0"
+          );
 
 
       document
-        .getElementById("horas")
+        .getElementById(
+          "horas"
+        )
         .textContent =
         String(horas)
-          .padStart(2,"0");
+          .padStart(
+            2,
+            "0"
+          );
 
 
       document
-        .getElementById("minutos")
+        .getElementById(
+          "minutos"
+        )
         .textContent =
         String(minutos)
-          .padStart(2,"0");
+          .padStart(
+            2,
+            "0"
+          );
 
 
       document
-        .getElementById("segundos")
+        .getElementById(
+          "segundos"
+        )
         .textContent =
         String(segundos)
-          .padStart(2,"0");
+          .padStart(
+            2,
+            "0"
+          );
 
     }
 
@@ -1792,7 +1931,7 @@
 
 
     /* ============================================================
-       GUARDAR EMAIL EN GOOGLE SHEETS
+       GUARDAR EMAIL
        ============================================================ */
 
 
@@ -1850,7 +1989,6 @@
           "";
 
 
-
         const atribucion =
           obtenerAtribucion();
 
@@ -1863,9 +2001,11 @@
             CONFIG.urlAvisos,
             {
 
-              method:"POST",
+              method:
+                "POST",
 
-              mode:"no-cors",
+              mode:
+                "no-cors",
 
               headers:{
 
@@ -1876,6 +2016,9 @@
 
               body:
                 JSON.stringify({
+
+                  tipo:
+                    "registro_email",
 
                   email:
                     email,
@@ -1908,6 +2051,20 @@
             CONFIG.textoBotonApuntado;
 
 
+
+          /* --------------------------------------------
+             REGISTRAR EL AVISO EN ESTADÍSTICAS
+             -------------------------------------------- */
+
+          registrarEstadistica(
+            "aviso"
+          );
+
+
+
+          /* --------------------------------------------
+             VERCEL ANALYTICS
+             -------------------------------------------- */
 
           if (
             typeof window.va ===
@@ -1970,7 +2127,7 @@
 
 
     /* ============================================================
-       REGISTRAR DESCARGA DEL EPUB
+       REGISTRAR DESCARGA
        ============================================================ */
 
 
@@ -1983,6 +2140,16 @@
           obtenerAtribucion();
 
 
+
+        /* GOOGLE SHEETS */
+
+        registrarEstadistica(
+          "descarga"
+        );
+
+
+
+        /* VERCEL ANALYTICS */
 
         if (
           typeof window.va ===
