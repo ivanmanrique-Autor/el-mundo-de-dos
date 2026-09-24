@@ -1,1 +1,1212 @@
+<!doctype html>
 
+<html lang="es">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
+
+<meta
+  name="robots"
+  content="noindex,nofollow"
+>
+
+<title>Estadísticas — El mundo de dos</title>
+
+
+<style>
+
+:root{
+
+  --fondo:#f3eadc;
+  --texto:#202327;
+  --suave:#746e66;
+  --dorado:#c58c20;
+  --borde:rgba(197,140,32,.25);
+
+}
+
+
+*{
+  box-sizing:border-box;
+}
+
+
+body{
+
+  margin:0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8f0e4,
+      var(--fondo)
+    );
+
+  color:var(--texto);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+}
+
+
+.contenedor{
+
+  width:min(1100px,92%);
+
+  margin:auto;
+
+  padding:
+    50px 0 70px;
+
+}
+
+
+.cabecera{
+
+  margin-bottom:35px;
+
+}
+
+
+.ceja{
+
+  color:var(--dorado);
+
+  font-size:.72rem;
+
+  letter-spacing:.22em;
+
+  font-weight:700;
+
+  text-transform:uppercase;
+
+  margin-bottom:10px;
+
+}
+
+
+h1{
+
+  margin:0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-weight:400;
+
+  font-size:
+    clamp(2.3rem,5vw,4.5rem);
+
+  letter-spacing:-.04em;
+
+}
+
+
+.actualizacion{
+
+  color:var(--suave);
+
+  margin-top:10px;
+
+  font-size:.8rem;
+
+}
+
+
+/* FILTROS */
+
+.filtros{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:8px;
+
+  margin:
+    30px 0;
+
+}
+
+
+.filtro{
+
+  border:
+    1px solid var(--borde);
+
+  background:
+    rgba(255,255,255,.3);
+
+  padding:
+    9px 14px;
+
+  cursor:pointer;
+
+  font-size:.75rem;
+
+  text-transform:uppercase;
+
+  letter-spacing:.06em;
+
+  color:var(--texto);
+
+}
+
+
+.filtro.activo{
+
+  background:
+    var(--dorado);
+
+  color:white;
+
+  border-color:
+    var(--dorado);
+
+}
+
+
+/* TARJETAS */
+
+.tarjetas{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:15px;
+
+  margin-bottom:35px;
+
+}
+
+
+.tarjeta{
+
+  padding:
+    22px;
+
+  background:
+    rgba(255,255,255,.4);
+
+  border:
+    1px solid var(--borde);
+
+}
+
+
+.numero{
+
+  display:block;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(2rem,4vw,3.3rem);
+
+  line-height:1;
+
+}
+
+
+.etiqueta{
+
+  display:block;
+
+  margin-top:8px;
+
+  color:var(--suave);
+
+  font-size:.7rem;
+
+  letter-spacing:.1em;
+
+  text-transform:uppercase;
+
+}
+
+
+/* TABLA */
+
+.tabla-contenedor{
+
+  overflow-x:auto;
+
+  background:
+    rgba(255,255,255,.25);
+
+  border:
+    1px solid var(--borde);
+
+}
+
+
+table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  min-width:650px;
+
+}
+
+
+th{
+
+  text-align:left;
+
+  padding:
+    15px;
+
+  color:var(--suave);
+
+  font-size:.68rem;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+  border-bottom:
+    1px solid var(--borde);
+
+}
+
+
+td{
+
+  padding:
+    15px;
+
+  border-bottom:
+    1px solid rgba(0,0,0,.06);
+
+}
+
+
+td.numero-tabla{
+
+  text-align:right;
+
+}
+
+
+th.numero-tabla{
+
+  text-align:right;
+
+}
+
+
+.total{
+
+  font-weight:700;
+
+  background:
+    rgba(197,140,32,.08);
+
+}
+
+
+.estado{
+
+  padding:
+    30px;
+
+  text-align:center;
+
+  color:var(--suave);
+
+}
+
+
+.error{
+
+  color:#9c4238;
+
+}
+
+
+@media(max-width:750px){
+
+  .contenedor{
+
+    padding-top:30px;
+
+  }
+
+
+  .tarjetas{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+
+  .tarjeta{
+
+    padding:18px;
+
+  }
+
+
+  .numero{
+
+    font-size:2.2rem;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="contenedor">
+
+
+<header class="cabecera">
+
+  <div class="ceja">
+    El mundo de dos
+  </div>
+
+  <h1>
+    Estadísticas
+  </h1>
+
+  <div
+    id="actualizacion"
+    class="actualizacion">
+    Cargando datos...
+  </div>
+
+</header>
+
+
+
+<div class="filtros">
+
+  <button
+    class="filtro"
+    data-periodo="hoy">
+    Hoy
+  </button>
+
+  <button
+    class="filtro"
+    data-periodo="7">
+    7 días
+  </button>
+
+  <button
+    class="filtro"
+    data-periodo="30">
+    30 días
+  </button>
+
+  <button
+    class="filtro activo"
+    data-periodo="todo">
+    Todo
+  </button>
+
+</div>
+
+
+
+<section class="tarjetas">
+
+
+<div class="tarjeta">
+
+  <span
+    id="totalVisitas"
+    class="numero">
+    —
+  </span>
+
+  <span class="etiqueta">
+    Visitas
+  </span>
+
+</div>
+
+
+<div class="tarjeta">
+
+  <span
+    id="totalAvisos"
+    class="numero">
+    —
+  </span>
+
+  <span class="etiqueta">
+    Avisos
+  </span>
+
+</div>
+
+
+<div class="tarjeta">
+
+  <span
+    id="totalDescargas"
+    class="numero">
+    —
+  </span>
+
+  <span class="etiqueta">
+    Descargas
+  </span>
+
+</div>
+
+
+<div class="tarjeta">
+
+  <span
+    id="conversion"
+    class="numero">
+    —
+  </span>
+
+  <span class="etiqueta">
+    Conversión a aviso
+  </span>
+
+</div>
+
+
+</section>
+
+
+
+<div
+  id="estado"
+  class="estado">
+
+  Cargando estadísticas...
+
+</div>
+
+
+
+<div
+  id="tablaContenedor"
+  class="tabla-contenedor"
+  style="display:none"
+>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+  <th>
+    Origen
+  </th>
+
+  <th class="numero-tabla">
+    Visitas
+  </th>
+
+  <th class="numero-tabla">
+    Avisos
+  </th>
+
+  <th class="numero-tabla">
+    Descargas
+  </th>
+
+  <th class="numero-tabla">
+    % aviso
+  </th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="tablaDatos">
+</tbody>
+
+
+<tfoot>
+
+<tr class="total">
+
+  <td>
+    TOTAL
+  </td>
+
+  <td
+    id="tablaTotalVisitas"
+    class="numero-tabla">
+  </td>
+
+  <td
+    id="tablaTotalAvisos"
+    class="numero-tabla">
+  </td>
+
+  <td
+    id="tablaTotalDescargas"
+    class="numero-tabla">
+  </td>
+
+  <td
+    id="tablaTotalConversion"
+    class="numero-tabla">
+  </td>
+
+</tr>
+
+</tfoot>
+
+
+</table>
+
+
+</div>
+
+
+</main>
+
+
+
+<script>
+
+
+/* ==============================================================
+   CONFIGURACIÓN
+
+   Es la misma URL de Apps Script que usamos en la web.
+   ============================================================== */
+
+
+const CONFIG = {
+
+  urlDatos:
+    "https://script.google.com/macros/s/AKfycbyS_yTZ0GYS9Y7tDBee3A9vb4jsK0fWgj9q4ockol2OdziBCYP_cyuOTQib0KzMTEB3jA/exec"
+
+};
+
+
+
+let datosOriginales = [];
+
+let periodoActual =
+  "todo";
+
+
+
+/* ==============================================================
+   CARGAR DATOS
+   ============================================================== */
+
+
+async function cargarDatos(){
+
+
+  try{
+
+
+    const respuesta =
+      await fetch(
+        CONFIG.urlDatos +
+        "?t=" +
+        Date.now()
+      );
+
+
+    const resultado =
+      await respuesta.json();
+
+
+    if(
+      !resultado.ok
+    ){
+
+      throw new Error(
+        resultado.error ||
+        "Error desconocido"
+      );
+
+    }
+
+
+    datosOriginales =
+      resultado.datos || [];
+
+
+    actualizarPanel();
+
+
+    document
+      .getElementById(
+        "actualizacion"
+      )
+      .textContent =
+      "Actualizado: " +
+      new Date()
+        .toLocaleString(
+          "es-ES"
+        );
+
+
+  }
+
+
+  catch(error){
+
+
+    document
+      .getElementById(
+        "estado"
+      )
+      .innerHTML =
+      '<span class="error">' +
+      'No se han podido cargar las estadísticas.' +
+      '</span>';
+
+
+    console.error(error);
+
+  }
+
+
+}
+
+
+
+/* ==============================================================
+   FILTRAR POR FECHA
+   ============================================================== */
+
+
+function filtrarDatos(){
+
+
+  if(
+    periodoActual ===
+    "todo"
+  ){
+
+    return datosOriginales;
+
+  }
+
+
+  const ahora =
+    new Date();
+
+
+  return datosOriginales.filter(
+    function(item){
+
+
+      const fecha =
+        new Date(
+          item.fecha
+        );
+
+
+      if(
+        periodoActual ===
+        "hoy"
+      ){
+
+
+        return(
+
+          fecha.getDate() ===
+            ahora.getDate()
+
+          &&
+
+          fecha.getMonth() ===
+            ahora.getMonth()
+
+          &&
+
+          fecha.getFullYear() ===
+            ahora.getFullYear()
+
+        );
+
+      }
+
+
+      const dias =
+        Number(
+          periodoActual
+        );
+
+
+      const limite =
+        new Date();
+
+
+      limite.setDate(
+        limite.getDate() -
+        dias
+      );
+
+
+      return(
+        fecha >= limite
+      );
+
+
+    }
+  );
+
+
+}
+
+
+
+/* ==============================================================
+   CONSOLIDAR
+   ============================================================== */
+
+
+function consolidar(datos){
+
+
+  const origenes = {};
+
+
+  let visitas = 0;
+
+  let avisos = 0;
+
+  let descargas = 0;
+
+
+
+  datos.forEach(
+    function(item){
+
+
+      const origen =
+        item.origen ||
+        "directo";
+
+
+      if(
+        !origenes[origen]
+      ){
+
+        origenes[origen] = {
+
+          visitas:0,
+
+          avisos:0,
+
+          descargas:0
+
+        };
+
+      }
+
+
+
+      if(
+        item.evento ===
+        "visita"
+      ){
+
+        visitas++;
+
+        origenes[origen]
+          .visitas++;
+
+      }
+
+
+      if(
+        item.evento ===
+        "aviso"
+      ){
+
+        avisos++;
+
+        origenes[origen]
+          .avisos++;
+
+      }
+
+
+      if(
+        item.evento ===
+        "descarga"
+      ){
+
+        descargas++;
+
+        origenes[origen]
+          .descargas++;
+
+      }
+
+
+    }
+  );
+
+
+  return{
+
+    origenes,
+
+    visitas,
+
+    avisos,
+
+    descargas
+
+  };
+
+
+}
+
+
+
+/* ==============================================================
+   MOSTRAR PANEL
+   ============================================================== */
+
+
+function actualizarPanel(){
+
+
+  const datos =
+    filtrarDatos();
+
+
+  const resumen =
+    consolidar(datos);
+
+
+  const conversion =
+
+    resumen.visitas > 0
+
+      ?
+
+      (
+        resumen.avisos /
+        resumen.visitas *
+        100
+      )
+
+      :
+
+      0;
+
+
+
+  document
+    .getElementById(
+      "totalVisitas"
+    )
+    .textContent =
+    resumen.visitas;
+
+
+  document
+    .getElementById(
+      "totalAvisos"
+    )
+    .textContent =
+    resumen.avisos;
+
+
+  document
+    .getElementById(
+      "totalDescargas"
+    )
+    .textContent =
+    resumen.descargas;
+
+
+  document
+    .getElementById(
+      "conversion"
+    )
+    .textContent =
+    conversion
+      .toFixed(1)
+      .replace(".",",")
+      + "%";
+
+
+
+  const cuerpo =
+    document.getElementById(
+      "tablaDatos"
+    );
+
+
+  cuerpo.innerHTML =
+    "";
+
+
+
+  const filas =
+    Object.entries(
+      resumen.origenes
+    );
+
+
+  filas.sort(
+    function(a,b){
+
+      return(
+        b[1].visitas -
+        a[1].visitas
+      );
+
+    }
+  );
+
+
+
+  filas.forEach(
+    function(
+      [origen,valores]
+    ){
+
+
+      const conversionOrigen =
+
+        valores.visitas > 0
+
+          ?
+
+          valores.avisos /
+          valores.visitas *
+          100
+
+          :
+
+          0;
+
+
+
+      const fila =
+        document.createElement(
+          "tr"
+        );
+
+
+      fila.innerHTML =
+
+        "<td>" +
+        escaparHTML(origen) +
+        "</td>" +
+
+        '<td class="numero-tabla">' +
+        valores.visitas +
+        "</td>" +
+
+        '<td class="numero-tabla">' +
+        valores.avisos +
+        "</td>" +
+
+        '<td class="numero-tabla">' +
+        valores.descargas +
+        "</td>" +
+
+        '<td class="numero-tabla">' +
+        conversionOrigen
+          .toFixed(1)
+          .replace(".",",") +
+        "%" +
+        "</td>";
+
+
+      cuerpo.appendChild(
+        fila
+      );
+
+
+    }
+  );
+
+
+
+  document
+    .getElementById(
+      "tablaTotalVisitas"
+    )
+    .textContent =
+    resumen.visitas;
+
+
+  document
+    .getElementById(
+      "tablaTotalAvisos"
+    )
+    .textContent =
+    resumen.avisos;
+
+
+  document
+    .getElementById(
+      "tablaTotalDescargas"
+    )
+    .textContent =
+    resumen.descargas;
+
+
+  document
+    .getElementById(
+      "tablaTotalConversion"
+    )
+    .textContent =
+    conversion
+      .toFixed(1)
+      .replace(".",",")
+      + "%";
+
+
+
+  document
+    .getElementById(
+      "estado"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "tablaContenedor"
+    )
+    .style.display =
+    "block";
+
+
+}
+
+
+
+/* ==============================================================
+   FILTROS
+   ============================================================== */
+
+
+document
+  .querySelectorAll(
+    ".filtro"
+  )
+  .forEach(
+    function(boton){
+
+
+      boton.addEventListener(
+        "click",
+        function(){
+
+
+          periodoActual =
+            boton.dataset.periodo;
+
+
+          document
+            .querySelectorAll(
+              ".filtro"
+            )
+            .forEach(
+              function(b){
+
+                b.classList
+                  .remove(
+                    "activo"
+                  );
+
+              }
+            );
+
+
+          boton.classList
+            .add(
+              "activo"
+            );
+
+
+          actualizarPanel();
+
+
+        }
+      );
+
+
+    }
+  );
+
+
+
+/* ==============================================================
+   SEGURIDAD AL MOSTRAR TEXTO
+   ============================================================== */
+
+
+function escaparHTML(texto){
+
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.textContent =
+    texto;
+
+
+  return div.innerHTML;
+
+}
+
+
+
+/* ==============================================================
+   INICIO
+   ============================================================== */
+
+
+cargarDatos();
+
+
+</script>
+
+
+</body>
+
+</html>
