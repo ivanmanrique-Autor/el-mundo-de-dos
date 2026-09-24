@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,353 +8,1083 @@
   <meta name="theme-color" content="#f3eadc">
   <title>El mundo de dos — Iván Manrique</title>
 
-  <!-- Vercel Web Analytics -->
+
+  <!-- ============================================================
+       CONFIGURACIÓN DE LA WEB
+       PARA CAMBIAR PORTADA, EPUB O FECHA, TOCA SOLO ESTO
+       ============================================================ -->
+
+  <script>
+
+    const CONFIG = {
+
+      // Imagen de portada
+      portada: "portada2.jpg",
+
+      // Archivo EPUB subido a GitHub
+      archivoDescarga: "el-mundo-de-dos.epub",
+
+      // Nombre que tendrá el archivo al descargarlo
+      nombreDescarga: "El mundo de dos - Muestra.epub",
+
+      // Fecha y hora en la que se activa automáticamente la descarga
+      // Formato: AAAA-MM-DDTHH:MM:SS+01:00
+      fechaLanzamiento: "2027-01-01T00:00:00+01:00",
+
+      // Texto del botón cuando llegue el lanzamiento
+      textoBotonDescarga: "Descargar muestra gratis",
+
+      // Google Apps Script que guarda los emails
+      urlAvisos:
+        "https://script.google.com/macros/s/AKfycbyS_yTZ0GYS9Y7tDBee3A9vb4jsK0fWgj9q4ockol2OdziBCYP_cyuOTQib0KzMTEB3jA/exec"
+
+    };
+
+  </script>
+
+
+  <!-- ============================================================
+       VERCEL WEB ANALYTICS
+       ============================================================ -->
+
   <script>
     window.va = window.va || function () {
       (window.vaq = window.vaq || []).push(arguments);
     };
   </script>
+
   <script defer src="/_vercel/insights/script.js"></script>
 
+
   <style>
+
     :root{
       --fondo:#f3eadc;
       --texto:#202327;
       --suave:#746e66;
       --dorado:#c58c20;
-      --dorado-oscuro:#a87312
+      --dorado-oscuro:#a87312;
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
 
-    html{scroll-behavior:smooth}
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
       min-height:100svh;
+
       background:
-        radial-gradient(circle at 78% 15%,rgba(255,255,255,.78),transparent 28rem),
-        linear-gradient(180deg,#f8f0e4 0%,var(--fondo) 100%);
+        radial-gradient(
+          circle at 78% 15%,
+          rgba(255,255,255,.78),
+          transparent 28rem
+        ),
+        linear-gradient(
+          180deg,
+          #f8f0e4 0%,
+          var(--fondo) 100%
+        );
+
       color:var(--texto);
-      font-family:Georgia,"Times New Roman",serif;
-      overflow-x:hidden
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      overflow-x:hidden;
     }
+
+
+    /* ============================================================
+       ESTRUCTURA
+       ============================================================ */
 
     .pagina{
+
       min-height:100svh;
+
       display:grid;
-      grid-template-columns:minmax(270px,440px) minmax(320px,610px);
-      grid-template-areas:"portada contenido";
+
+      grid-template-columns:
+        minmax(270px,440px)
+        minmax(320px,610px);
+
+      grid-template-areas:
+        "portada contenido";
+
       justify-content:center;
       align-items:center;
+
       gap:clamp(2.4rem,7vw,8rem);
-      padding:clamp(1.4rem,5vw,4.5rem);
-      position:relative
+
+      padding:
+        clamp(1.4rem,5vw,4.5rem);
+
+      position:relative;
     }
+
+
+    /* ============================================================
+       PORTADA
+       ============================================================ */
 
     .portada-contenedor{
+
       grid-area:portada;
+
       display:flex;
+
       justify-content:center;
-      animation:aparecer .9s ease-out both
+
+      animation:
+        aparecer .9s ease-out both;
     }
 
+
     .portada{
+
       width:min(100%,410px);
+
       height:auto;
+
       display:block;
+
       box-shadow:
         0 35px 85px rgba(64,48,25,.18),
         0 3px 10px rgba(64,48,25,.12);
-      transform:rotate(-.35deg)
+
+      transform:
+        rotate(-.35deg);
     }
+
+
+    /* ============================================================
+       CONTENIDO
+       ============================================================ */
 
     .contenido{
+
       grid-area:contenido;
+
       max-width:620px;
-      animation:subir 1s .12s ease-out both
+
+      animation:
+        subir 1s .12s ease-out both;
     }
+
 
     .ceja{
+
       margin:0 0 1.35rem;
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size:.72rem;
+
       letter-spacing:.24em;
+
       text-transform:uppercase;
+
       color:var(--dorado);
-      font-weight:700
+
+      font-weight:700;
     }
+
 
     h1{
+
       margin:0;
+
       font-weight:400;
-      font-size:clamp(2.7rem,6vw,5.9rem);
+
+      font-size:
+        clamp(2.7rem,6vw,5.9rem);
+
       line-height:.99;
+
       letter-spacing:-.045em;
-      text-wrap:balance
+
+      text-wrap:balance;
     }
+
 
     h1 em{
+
       color:var(--dorado);
-      font-style:normal
+
+      font-style:normal;
     }
+
 
     .separador{
+
       width:78px;
+
       height:1px;
+
       background:var(--dorado);
-      margin:2rem 0 1.55rem
+
+      margin:
+        2rem 0 1.55rem;
     }
+
+
+    /* ============================================================
+       CUENTA ATRÁS
+       ============================================================ */
+
+    .lanzamiento{
+      margin-top:.2rem;
+    }
+
+
+    .contador-titulo{
+
+      margin:0 0 .75rem;
+
+      color:var(--suave);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size:.78rem;
+
+      letter-spacing:.08em;
+
+      text-transform:uppercase;
+    }
+
+
+    .contador{
+
+      display:flex;
+
+      gap:.7rem;
+
+      margin-bottom:1.25rem;
+    }
+
+
+    .contador-bloque{
+
+      min-width:68px;
+
+      padding:.7rem .55rem;
+
+      border:
+        1px solid rgba(197,140,32,.32);
+
+      background:
+        rgba(255,255,255,.25);
+
+      text-align:center;
+    }
+
+
+    .contador-numero{
+
+      display:block;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:1.7rem;
+
+      line-height:1;
+
+      color:var(--texto);
+    }
+
+
+    .contador-etiqueta{
+
+      display:block;
+
+      margin-top:.35rem;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size:.56rem;
+
+      letter-spacing:.1em;
+
+      text-transform:uppercase;
+
+      color:var(--suave);
+    }
+
+
+    /* ============================================================
+       BOTONES
+       ============================================================ */
 
     .boton{
+
       display:inline-flex;
+
       align-items:center;
+
       justify-content:center;
+
       min-height:58px;
+
       padding:1rem 1.55rem;
-      border:1px solid var(--dorado-oscuro);
+
+      border:
+        1px solid var(--dorado-oscuro);
+
       color:#fffaf2;
+
       text-decoration:none;
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size:.78rem;
+
       font-weight:700;
+
       letter-spacing:.11em;
+
       text-transform:uppercase;
-      background:linear-gradient(180deg,#cc9528 0%,#b87d12 100%);
-      box-shadow:0 12px 28px rgba(174,116,13,.18);
+
+      background:
+        linear-gradient(
+          180deg,
+          #cc9528 0%,
+          #b87d12 100%
+        );
+
+      box-shadow:
+        0 12px 28px rgba(174,116,13,.18);
+
       cursor:pointer;
-      user-select:none
+
+      user-select:none;
     }
+
 
     .boton:active{
-      transform:translateY(1px)
+      transform:translateY(1px);
     }
+
+
+    /* ============================================================
+       FORMULARIO AVÍSAME
+       ============================================================ */
+
+    .formulario{
+
+      display:none;
+
+      margin-top:1rem;
+
+      max-width:420px;
+    }
+
+
+    .formulario.visible{
+
+      display:block;
+
+      animation:
+        subir .25s ease-out both;
+    }
+
+
+    .campo-email{
+
+      width:100%;
+
+      min-height:52px;
+
+      padding:.8rem 1rem;
+
+      border:
+        1px solid rgba(116,110,102,.45);
+
+      background:
+        rgba(255,255,255,.55);
+
+      color:var(--texto);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size:1rem;
+
+      outline:none;
+    }
+
+
+    .campo-email:focus{
+      border-color:var(--dorado);
+    }
+
+
+    .campo-email:disabled{
+      opacity:.65;
+    }
+
+
+    .boton-enviar{
+
+      width:100%;
+
+      margin-top:.55rem;
+
+      min-height:50px;
+
+      border:
+        1px solid var(--dorado-oscuro);
+
+      background:transparent;
+
+      color:
+        var(--dorado-oscuro);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size:.72rem;
+
+      font-weight:700;
+
+      letter-spacing:.1em;
+
+      text-transform:uppercase;
+
+      cursor:pointer;
+    }
+
+
+    .boton-enviar:disabled{
+
+      opacity:.5;
+
+      cursor:default;
+    }
+
+
+    .mensaje{
+
+      margin:.75rem 0 0;
+
+      min-height:1.2em;
+
+      color:var(--suave);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size:.82rem;
+    }
+
+
+    .mensaje.ok{
+      color:#55704b;
+    }
+
+
+    .mensaje.error{
+      color:#9c4238;
+    }
+
+
+    /* ============================================================
+       TEXTOS
+       ============================================================ */
 
     .nota{
+
       margin:.78rem 0 0;
+
       color:var(--suave);
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size:.82rem;
-      line-height:1.45
+
+      line-height:1.45;
     }
+
 
     .texto{
+
       margin:1.45rem 0 0;
+
       max-width:31rem;
+
       color:var(--suave);
-      font-size:clamp(1rem,1.7vw,1.18rem);
-      line-height:1.65
+
+      font-size:
+        clamp(1rem,1.7vw,1.18rem);
+
+      line-height:1.65;
     }
+
 
     .firma{
+
       position:absolute;
-      right:clamp(1.2rem,3vw,2.2rem);
+
+      right:
+        clamp(1.2rem,3vw,2.2rem);
+
       bottom:1.2rem;
-      color:rgba(32,35,39,.48);
-      font-family:Arial,Helvetica,sans-serif;
+
+      color:
+        rgba(32,35,39,.48);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size:.75rem;
-      letter-spacing:.04em
+
+      letter-spacing:.04em;
     }
+
+
+    .oculto{
+      display:none!important;
+    }
+
+
+    /* ============================================================
+       ANIMACIONES
+       ============================================================ */
 
     @keyframes aparecer{
+
       from{
         opacity:0;
-        transform:translateY(14px)
+        transform:translateY(14px);
       }
+
       to{
         opacity:1;
-        transform:translateY(0)
+        transform:translateY(0);
       }
+
     }
 
+
     @keyframes subir{
+
       from{
         opacity:0;
-        transform:translateY(18px)
+        transform:translateY(18px);
       }
+
       to{
         opacity:1;
-        transform:translateY(0)
+        transform:translateY(0);
       }
+
     }
+
+
+    /* ============================================================
+       MÓVIL
+       ============================================================ */
 
     @media (max-width:800px){
 
       .pagina{
+
         min-height:auto;
+
         grid-template-columns:1fr;
-        grid-template-areas:"contenido" "portada";
+
+        grid-template-areas:
+          "contenido"
+          "portada";
+
         gap:2rem;
-        padding:max(1rem,env(safe-area-inset-top)) 1.15rem 3.5rem
+
+        padding:
+          max(1rem,env(safe-area-inset-top))
+          1.15rem
+          3.5rem;
       }
+
 
       .contenido{
+
         text-align:center;
+
         margin:0 auto;
-        padding-top:.3rem
+
+        padding-top:.3rem;
+
+        width:100%;
       }
+
 
       .ceja{
+
         margin-bottom:.8rem;
-        font-size:.65rem
+
+        font-size:.65rem;
       }
+
 
       h1{
-        font-size:clamp(2.35rem,10.5vw,3.6rem);
-        line-height:1.01
+
+        font-size:
+          clamp(2.35rem,10.5vw,3.6rem);
+
+        line-height:1.01;
       }
+
 
       .separador{
-        margin:1.25rem auto 1.15rem
+
+        margin:
+          1.25rem auto 1.15rem;
       }
+
+
+      .contador{
+
+        justify-content:center;
+
+        gap:.35rem;
+      }
+
+
+      .contador-bloque{
+
+        min-width:0;
+
+        width:22%;
+
+        padding:.65rem .25rem;
+      }
+
+
+      .contador-numero{
+        font-size:1.45rem;
+      }
+
 
       .boton{
+
         width:min(100%,350px);
+
         min-height:54px;
+
         padding:.9rem 1rem;
-        font-size:.71rem
+
+        font-size:.71rem;
       }
+
+
+      .formulario{
+
+        margin:1rem auto 0;
+
+        width:min(100%,350px);
+      }
+
 
       .nota{
-        margin-top:.65rem
+        margin-top:.65rem;
       }
+
 
       .texto{
+
         margin:1rem auto 0;
+
         font-size:.98rem;
-        line-height:1.55
+
+        line-height:1.55;
       }
+
 
       .portada{
-        width:min(72vw,295px)
+        width:min(72vw,295px);
       }
 
+
       .firma{
+
         position:static;
+
         text-align:center;
-        padding:0 0 1rem
+
+        padding:0 0 1rem;
       }
+
     }
+
 
     @media (max-height:720px) and (max-width:800px){
 
       h1{
-        font-size:clamp(2.1rem,9.5vw,3rem)
+        font-size:clamp(2.1rem,9.5vw,3rem);
       }
+
 
       .texto{
-        display:none
+        display:none;
       }
+
 
       .portada{
-        width:min(58vw,235px)
+        width:min(58vw,235px);
       }
 
+
       .pagina{
-        gap:1.3rem
+        gap:1.3rem;
       }
+
     }
+
 
     @media (prefers-reduced-motion:reduce){
 
       *{
         animation:none!important;
-        scroll-behavior:auto!important
+        scroll-behavior:auto!important;
       }
+
     }
 
   </style>
+
 </head>
+
 
 <body>
 
+
   <main class="pagina">
+
+
+    <!-- PORTADA -->
 
     <div class="portada-contenedor">
 
       <img
+        id="portada"
         class="portada"
-        src="portada2.jpg"
+        src=""
         alt="Portada de El mundo de dos, de Iván Manrique"
       >
 
     </div>
 
+
+
     <section class="contenido">
+
 
       <p class="ceja">
         Una novela de Iván Manrique
       </p>
+
 
       <h1>
         Las personas no empiezan donde
         <em>las conocemos.</em>
       </h1>
 
+
       <div
         class="separador"
         aria-hidden="true">
       </div>
 
-      <a
-        id="descarga"
-        class="boton"
-        href="el-mundo-de-dos.epub"
-        download="el-mundo-de-dos.epub"
+
+
+      <!-- ========================================================
+           ANTES DEL LANZAMIENTO
+           ======================================================== -->
+
+      <div
+        id="prelanzamiento"
+        class="lanzamiento"
       >
-        Descargar muestra gratis
-      </a>
 
-      <p class="nota">
-        Los dos primeros capítulos · EPUB
-      </p>
 
-      <p class="texto">
-        Descubre el comienzo de
-        <em>El mundo de dos</em>.
-      </p>
+        <p class="contador-titulo">
+          La muestra estará disponible en
+        </p>
+
+
+        <div class="contador">
+
+
+          <div class="contador-bloque">
+
+            <span
+              id="dias"
+              class="contador-numero">
+              --
+            </span>
+
+            <span class="contador-etiqueta">
+              días
+            </span>
+
+          </div>
+
+
+          <div class="contador-bloque">
+
+            <span
+              id="horas"
+              class="contador-numero">
+              --
+            </span>
+
+            <span class="contador-etiqueta">
+              horas
+            </span>
+
+          </div>
+
+
+          <div class="contador-bloque">
+
+            <span
+              id="minutos"
+              class="contador-numero">
+              --
+            </span>
+
+            <span class="contador-etiqueta">
+              min
+            </span>
+
+          </div>
+
+
+          <div class="contador-bloque">
+
+            <span
+              id="segundos"
+              class="contador-numero">
+              --
+            </span>
+
+            <span class="contador-etiqueta">
+              seg
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+
+        <button
+          id="botonAvisame"
+          class="boton"
+          type="button"
+        >
+          Avísame
+        </button>
+
+
+
+        <form
+          id="formularioAviso"
+          class="formulario"
+          novalidate
+        >
+
+
+          <input
+            id="email"
+            class="campo-email"
+            type="email"
+            name="email"
+            placeholder="Tu correo electrónico"
+            autocomplete="email"
+            required
+          >
+
+
+          <button
+            id="botonEnviar"
+            class="boton-enviar"
+            type="submit"
+          >
+            Apuntarme
+          </button>
+
+
+          <p
+            id="mensaje"
+            class="mensaje"
+            aria-live="polite"
+          ></p>
+
+
+        </form>
+
+
+        <p class="nota">
+          Te avisaré cuando puedas descargar los dos primeros capítulos.
+        </p>
+
+
+      </div>
+
+
+
+      <!-- ========================================================
+           DESPUÉS DEL LANZAMIENTO
+           ======================================================== -->
+
+      <div
+        id="descargaDisponible"
+        class="oculto"
+      >
+
+
+        <a
+          id="descarga"
+          class="boton"
+          href="#"
+        >
+          Descargar muestra gratis
+        </a>
+
+
+        <p class="nota">
+          Los dos primeros capítulos · EPUB
+        </p>
+
+
+        <p class="texto">
+          Descubre el comienzo de
+          <em>El mundo de dos</em>.
+        </p>
+
+
+      </div>
+
 
     </section>
+
 
     <div class="firma">
       © Iván Manrique
     </div>
 
+
   </main>
+
 
 
   <script>
 
-    /*
-    ---------------------------------------------------
-    GUARDA EL ORIGEN DE LA VISITA DURANTE 90 DÍAS
-    ---------------------------------------------------
-    */
+
+    /* ============================================================
+       APLICAMOS CONFIGURACIÓN
+       ============================================================ */
+
+
+    document
+      .getElementById("portada")
+      .src =
+      CONFIG.portada;
+
+
+    const botonDescarga =
+      document.getElementById("descarga");
+
+
+    botonDescarga.href =
+      CONFIG.archivoDescarga;
+
+
+    botonDescarga.setAttribute(
+      "download",
+      CONFIG.nombreDescarga
+    );
+
+
+    botonDescarga.textContent =
+      CONFIG.textoBotonDescarga;
+
+
+    const FECHA_LANZAMIENTO =
+      new Date(
+        CONFIG.fechaLanzamiento
+      );
+
+
+
+    /* ============================================================
+       ATRIBUCIÓN DE LA VISITA
+       ============================================================ */
+
 
     (function () {
+
 
       const params =
         new URLSearchParams(
           window.location.search
         );
 
+
       const source =
         params.get("utm_source") ||
         params.get("origen");
 
+
       const campaign =
         params.get("utm_campaign");
+
 
       const medium =
         params.get("utm_medium");
 
 
+
       if (source) {
+
 
         const attribution = {
 
-          source:
-            source,
+          source:source,
 
           campaign:
             campaign || "",
@@ -384,6 +1115,7 @@
       }
 
 
+
       const expiry =
         Number(
           localStorage.getItem(
@@ -397,9 +1129,11 @@
         Date.now() > expiry
       ) {
 
+
         localStorage.removeItem(
           "emdd_attribution"
         );
+
 
         localStorage.removeItem(
           "emdd_attribution_expiry"
@@ -407,59 +1141,400 @@
 
       }
 
+
     })();
 
 
 
-    /*
-    ---------------------------------------------------
-    REGISTRA LA DESCARGA DEL EPUB
-    ---------------------------------------------------
-    */
+    /* ============================================================
+       OBTENER ATRIBUCIÓN
+       ============================================================ */
 
-    document
-      .getElementById("descarga")
-      .addEventListener(
-        "click",
-        function () {
 
-          let source =
+    function obtenerAtribucion() {
+
+
+      let source =
+        "directo";
+
+
+      let medium =
+        "directo";
+
+
+      let campaign =
+        "sin_campana";
+
+
+      try {
+
+
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "emdd_attribution"
+            )
+          );
+
+
+        if (saved) {
+
+
+          source =
+            saved.source ||
             "directo";
 
-          let medium =
+
+          medium =
+            saved.medium ||
             "directo";
 
-          let campaign =
+
+          campaign =
+            saved.campaign ||
             "sin_campana";
 
-
-          try {
-
-            const saved =
-              JSON.parse(
-                localStorage.getItem(
-                  "emdd_attribution"
-                )
-              );
+        }
 
 
-            if (saved) {
+      } catch (e) {}
 
-              source =
-                saved.source ||
-                "directo";
 
-              medium =
-                saved.medium ||
-                "directo";
+      return {
 
-              campaign =
-                saved.campaign ||
-                "sin_campana";
+        source:source,
+
+        medium:medium,
+
+        campaign:campaign
+
+      };
+
+    }
+
+
+
+    /* ============================================================
+       CUENTA ATRÁS
+       ============================================================ */
+
+
+    const prelanzamiento =
+      document.getElementById(
+        "prelanzamiento"
+      );
+
+
+    const descargaDisponible =
+      document.getElementById(
+        "descargaDisponible"
+      );
+
+
+    let contadorIntervalo;
+
+
+
+    function actualizarContador() {
+
+
+      const ahora =
+        new Date();
+
+
+      const diferencia =
+        FECHA_LANZAMIENTO.getTime() -
+        ahora.getTime();
+
+
+
+      if (diferencia <= 0) {
+
+
+        prelanzamiento
+          .classList
+          .add("oculto");
+
+
+        descargaDisponible
+          .classList
+          .remove("oculto");
+
+
+        if (contadorIntervalo) {
+
+          clearInterval(
+            contadorIntervalo
+          );
+
+        }
+
+
+        return;
+
+      }
+
+
+
+      const dias =
+        Math.floor(
+          diferencia /
+          (1000 * 60 * 60 * 24)
+        );
+
+
+      const horas =
+        Math.floor(
+          (
+            diferencia /
+            (1000 * 60 * 60)
+          ) % 24
+        );
+
+
+      const minutos =
+        Math.floor(
+          (
+            diferencia /
+            (1000 * 60)
+          ) % 60
+        );
+
+
+      const segundos =
+        Math.floor(
+          (
+            diferencia / 1000
+          ) % 60
+        );
+
+
+
+      document
+        .getElementById("dias")
+        .textContent =
+        String(dias)
+          .padStart(2,"0");
+
+
+      document
+        .getElementById("horas")
+        .textContent =
+        String(horas)
+          .padStart(2,"0");
+
+
+      document
+        .getElementById("minutos")
+        .textContent =
+        String(minutos)
+          .padStart(2,"0");
+
+
+      document
+        .getElementById("segundos")
+        .textContent =
+        String(segundos)
+          .padStart(2,"0");
+
+    }
+
+
+
+    actualizarContador();
+
+
+    contadorIntervalo =
+      setInterval(
+        actualizarContador,
+        1000
+      );
+
+
+
+    /* ============================================================
+       BOTÓN AVÍSAME
+       ============================================================ */
+
+
+    const botonAvisame =
+      document.getElementById(
+        "botonAvisame"
+      );
+
+
+    const formularioAviso =
+      document.getElementById(
+        "formularioAviso"
+      );
+
+
+    const campoEmail =
+      document.getElementById(
+        "email"
+      );
+
+
+    const botonEnviar =
+      document.getElementById(
+        "botonEnviar"
+      );
+
+
+    const mensaje =
+      document.getElementById(
+        "mensaje"
+      );
+
+
+
+    botonAvisame.addEventListener(
+      "click",
+      function () {
+
+
+        formularioAviso
+          .classList
+          .add("visible");
+
+
+        botonAvisame
+          .classList
+          .add("oculto");
+
+
+        setTimeout(
+          function () {
+
+            campoEmail.focus();
+
+          },
+          100
+        );
+
+      }
+    );
+
+
+
+    /* ============================================================
+       GUARDAR EMAIL EN GOOGLE SHEETS
+       ============================================================ */
+
+
+    formularioAviso.addEventListener(
+      "submit",
+      async function(event) {
+
+
+        event.preventDefault();
+
+
+        const email =
+          campoEmail
+            .value
+            .trim();
+
+
+        const patronEmail =
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
+        if (
+          !patronEmail.test(email)
+        ) {
+
+
+          mensaje.textContent =
+            "Introduce un correo electrónico válido.";
+
+
+          mensaje.className =
+            "mensaje error";
+
+
+          return;
+
+        }
+
+
+
+        botonEnviar.disabled =
+          true;
+
+
+        campoEmail.disabled =
+          true;
+
+
+        botonEnviar.textContent =
+          "Guardando...";
+
+
+        mensaje.textContent =
+          "";
+
+
+        const atribucion =
+          obtenerAtribucion();
+
+
+
+        try {
+
+
+          await fetch(
+            CONFIG.urlAvisos,
+            {
+
+              method:"POST",
+
+              mode:"no-cors",
+
+              headers:{
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+              },
+
+              body:
+                JSON.stringify({
+
+                  email:
+                    email,
+
+                  origen:
+                    atribucion.source,
+
+                  medio:
+                    atribucion.medium,
+
+                  campana:
+                    atribucion.campaign
+
+                })
 
             }
+          );
 
-          } catch (e) {}
+
+
+          mensaje.textContent =
+            "✓ Apuntado. Te avisaré cuando esté disponible.";
+
+
+          mensaje.className =
+            "mensaje ok";
+
+
+          botonEnviar.textContent =
+            "Apuntado";
+
+
+          /*
+          Registramos también el alta
+          en Vercel Analytics
+          */
 
 
           if (
@@ -467,32 +1542,112 @@
             "function"
           ) {
 
+
             window.va(
               "event",
-              "descarga_epub",
+              "aviso_email",
               {
 
                 origen:
-                  source,
+                  atribucion.source,
 
                 medio:
-                  medium,
+                  atribucion.medium,
 
                 campana:
-                  campaign,
-
-                contenido:
-                  "dos_primeros_capitulos"
+                  atribucion.campaign
 
               }
             );
 
           }
 
+
         }
-      );
+
+
+        catch (error) {
+
+
+          mensaje.textContent =
+            "No se ha podido guardar. Inténtalo de nuevo.";
+
+
+          mensaje.className =
+            "mensaje error";
+
+
+          botonEnviar.disabled =
+            false;
+
+
+          campoEmail.disabled =
+            false;
+
+
+          botonEnviar.textContent =
+            "Apuntarme";
+
+
+        }
+
+
+      }
+    );
+
+
+
+    /* ============================================================
+       REGISTRA DESCARGAS DEL EPUB
+       ============================================================ */
+
+
+    botonDescarga.addEventListener(
+      "click",
+      function () {
+
+
+        const atribucion =
+          obtenerAtribucion();
+
+
+
+        if (
+          typeof window.va ===
+          "function"
+        ) {
+
+
+          window.va(
+            "event",
+            "descarga_epub",
+            {
+
+              origen:
+                atribucion.source,
+
+              medio:
+                atribucion.medium,
+
+              campana:
+                atribucion.campaign,
+
+              contenido:
+                "dos_primeros_capitulos"
+
+            }
+          );
+
+        }
+
+
+      }
+    );
+
 
   </script>
 
+
 </body>
+
 </html>
